@@ -1,5 +1,5 @@
 import React from "react";
-import { PageProps } from "gatsby";
+import { PageProps, Link } from "gatsby";
 
 const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
   pageContext,
@@ -11,7 +11,7 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
     <div>
       {data.projects.map((project, i) => (
         <div key={i}>
-          <a href={`/project/${projectPageNumber + i}`}>{project.title}</a>
+          <Link to={`/project/${projectPageNumber + i}`}>{project.title}</Link>
         </div>
       ))}
 
@@ -20,16 +20,16 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
       {data.pagesCount > 1 &&
         Array.from({ length: data.pagesCount }, (_, i) => i + 1).map(
           (pageNumber) => (
-            <a
+            <Link
               key={pageNumber}
               style={{
                 marginRight: "10px",
                 fontWeight: pageNumber === data.pageNumber ? "bold" : "normal",
               }}
-              href={pageNumber === 1 ? "/" : `/p${pageNumber}`}
+              to={pageNumber === 1 ? "/" : `/p${pageNumber}`}
             >
               {pageNumber}
-            </a>
+            </Link>
           )
         )}
     </div>
