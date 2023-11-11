@@ -1,7 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
-  pathPrefix: '/portfolio',
+  pathPrefix: "/portfolio",
   siteMetadata: {
     title: `Portfolio`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -11,19 +11,8 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: false,
   plugins: [
-    // "gatsby-plugin-styled-components",
+    "gatsby-plugin-postcss",
     // "gatsby-plugin-google-gtag",
-    // "gatsby-plugin-image",
-    // "gatsby-plugin-sitemap",
-    // {
-    //   resolve: "gatsby-plugin-manifest",
-    //   options: {
-    //     icon: "src/images/icon.png",
-    //   },
-    // },
-    // "gatsby-transformer-remark",
-    // "gatsby-plugin-sharp",
-    // "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -31,14 +20,6 @@ const config: GatsbyConfig = {
         path: "./src/",
       },
       __key: "src",
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "gatsby-node.ts",
-        path: "./gatsby-node.ts",
-      },
-      __key: "gatsby-node.ts",
     },
   ],
 };

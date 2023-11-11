@@ -8,7 +8,9 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
 
   const projectPageNumber = general.projectsPerPage * (data.pageNumber - 1) + 1;
   return (
-    <div>
+    <div className="bg-slate-500">
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      
       {data.projects.map((project, i) => (
         <div key={i}>
           <Link to={`/project/${projectPageNumber + i}`}>{project.title}</Link>
