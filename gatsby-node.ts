@@ -26,7 +26,6 @@ export const createPages: GatsbyNode["createPages"] = async ({
           projects: projects.slice(start, start + general.projectsPerPage),
           pageNumber,
           pagesCount,
-          projectsPerPage: general.projectsPerPage
         },
       },
     });
@@ -44,7 +43,3 @@ export const createPages: GatsbyNode["createPages"] = async ({
     });
   });
 };
-
-exports.onCreatePage = ({ actions, page }) => {
-  actions.createPage(page)
-}
