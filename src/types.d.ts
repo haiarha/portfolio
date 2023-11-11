@@ -1,15 +1,19 @@
 interface ProjectData {
-  title: string
-  content: string
-};
+  title: string;
+  content: string;
+}
 
-type HomepageData = ProjectData[];
+interface HomepageData {
+  projects: ProjectData[];
+  pageNumber: number;
+  pagesCount: number;
+}
 
 interface GeneralData {
-  favicon: string
+  projectsPerPage: number;
 }
 
 interface ProjectContext<T> {
-  general: GeneralData
-  data: T
+  general: GeneralData;
+  data: T;
 }

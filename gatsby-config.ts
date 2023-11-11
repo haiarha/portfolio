@@ -1,6 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+  pathPrefix: '/portfolio',
   siteMetadata: {
     title: `Portfolio`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -26,34 +27,18 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "images",
-        path: "./src/images/",
+        name: "src",
+        path: "./src/",
       },
-      __key: "images",
+      __key: "src",
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "pages",
-        path: "./src/pages/",
+        name: "gatsby-node.ts",
+        path: "./gatsby-node.ts",
       },
-      __key: "pages",
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "templates",
-        path: "./src/templates/",
-      },
-      __key: "templates",
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "data",
-        path: "./src/data/",
-      },
-      __key: "data",
+      __key: "gatsby-node.ts",
     },
   ],
 };
