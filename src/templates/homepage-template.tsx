@@ -1,5 +1,6 @@
 import React from "react";
 import { PageProps, Link } from "gatsby";
+import Page from "../components/Page";
 
 const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
   pageContext,
@@ -8,7 +9,7 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
 
   const projectPageNumber = general.projectsPerPage * (data.pageNumber - 1) + 1;
   return (
-    <div className="bg-slate-100">
+    <Page>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
 
       {data.projects.map((project, i) => (
@@ -40,7 +41,7 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
             </Link>
           )
         )}
-    </div>
+    </Page>
   );
 };
 
