@@ -14,7 +14,7 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
       {data.projects.map((project, i) => (
         <div key={i}>
           <Link
-            className="text-blue-800 dark:text-blue-400 hover:underline"
+            className="text-blue-800 hover:underline"
             to={`/project/${project.slug}`}
           >
             <img src={project.imgSrc} />

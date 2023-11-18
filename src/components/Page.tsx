@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
 
-const Page: React.FC<{children: React.ReactNode}> = ({children}) => {
+const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -64,11 +64,9 @@ const Page: React.FC<{children: React.ReactNode}> = ({children}) => {
         </div>
       </nav>
 
-      <div className="container mx-auto p-4">
-        {children}
-      </div>
+      <main className="container mx-auto p-4">{children}</main>
     </div>
-  )
-}
+  );
+};
 
 export default Page;

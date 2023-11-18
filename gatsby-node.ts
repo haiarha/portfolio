@@ -1,4 +1,5 @@
 import { GatsbyNode } from "gatsby";
+import { HTMLElement } from "node-html-parser";
 
 const { marked } = require("./src/marked");
 const path = require("path");
@@ -16,23 +17,24 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
   const general: GeneralData = require(path.join(contentPath, "general.json"));
 
-  const files: string[] = fs.readdirSync(projectsPath);
+  const projectFiles: string[] = fs.readdirSync(projectsPath);
 
-  const projects = files.map<ProjectData>((file: string) => {
+  const projects = projectFiles.map<ProjectData>((projectFileName: string) => {
     const html = marked.parse(
-      fs.readFileSync(path.join(projectsPath, file), { encoding: "utf8" })
+      fs.readFileSync(path.join(projectsPath, projectFileName), {
+        encoding: "utf8",
+      })
     );
-    const parsed = htmlParser.parse(html);
+    const parsed: HTMLElement = htmlParser.parse(html);
     const h1Text: string | undefined = parsed.querySelector("h1")?.innerText;
-    const imgSrc: string | undefined = parsed.querySelector("img")?.attributes.src;
-
-    console.log(11111, imgSrc);
+    const imgSrc: string | undefined =
+      parsed.querySelector("img")?.attributes.src;
 
     return {
-      slug: file.replace(/\.[^.]+$/, ""),
-      title: h1Text || file,
+      slug: projectFileName.replace(/\.[^.]+$/, ""),
+      title: h1Text || projectFileName,
       // TODO
-      imgSrc: imgSrc || '',
+      imgSrc: imgSrc || "",
       html,
     };
   });
@@ -48,7 +50,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     },
   });
 
-  projects.forEach((project, i) => {
+  projects.forEach((project) => {
     createPage({
       path: `/project/${project.slug}`,
       component: path.resolve("./src/templates/project-template.tsx"),
