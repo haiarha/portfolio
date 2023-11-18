@@ -15,11 +15,12 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions;
 
-  const general: GeneralData = require(path.join(contentPath, "general.json"));
+  const general: PageContextGeneral = require(path.join(contentPath, "general.json"));
 
   const projectFiles: string[] = fs.readdirSync(projectsPath);
 
   const projects = projectFiles.map<ProjectData>((projectFileName: string) => {
+    const slug = projectFileName.replace(/\.[^.]+$/, "");
     const html = marked.parse(
       fs.readFileSync(path.join(projectsPath, projectFileName), {
         encoding: "utf8",
@@ -31,15 +32,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
       parsed.querySelector("img")?.attributes.src;
 
     return {
-      slug: projectFileName.replace(/\.[^.]+$/, ""),
+      slug,
       title: h1Text || projectFileName,
-      // TODO
-      imgSrc: imgSrc || "",
+      imgSrc,
       html,
     };
   });
 
-  createPage({
+  createPage<PageContext<HomepageData>>({
     path: `/`,
     component: path.resolve("./src/templates/homepage-template.tsx"),
     context: {
@@ -51,7 +51,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   });
 
   projects.forEach((project) => {
-    createPage({
+    createPage<PageContext<ProjectData>>({
       path: `/project/${project.slug}`,
       component: path.resolve("./src/templates/project-template.tsx"),
       context: {

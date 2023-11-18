@@ -2,7 +2,9 @@ import React from "react";
 import { PageProps, Link } from "gatsby";
 import Page from "../components/Page";
 
-const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
+import imgFallback from "../images/icon.png";
+
+const PageTemplate: React.FC<PageProps<{}, PageContext<HomepageData>>> = ({
   pageContext,
 }) => {
   const { general, data } = pageContext;
@@ -17,7 +19,11 @@ const PageTemplate: React.FC<PageProps<{}, ProjectContext<HomepageData>>> = ({
             className="text-blue-800 hover:underline"
             to={`/project/${project.slug}`}
           >
-            <img src={project.imgSrc} />
+            <img
+              src={project.imgSrc || imgFallback}
+              className="object-cover w-64 h-64"
+              alt={`Illustration of ${project.title}`}
+            />
             {project.title}
           </Link>
         </div>

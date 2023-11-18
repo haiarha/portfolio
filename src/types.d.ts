@@ -1,6 +1,11 @@
+declare module "*.png" {
+  const value: any;
+  export default value;
+}
+
 interface ProjectData {
   slug: string;
-  imgSrc: string;
+  imgSrc?: string;
   title: string;
   html: string;
 }
@@ -9,12 +14,12 @@ interface HomepageData {
   projects: ProjectData[];
 }
 
-interface GeneralData {
+interface PageContextGeneral {
   homepageTitle: string;
   projectsPerPage: number;
 }
 
-interface ProjectContext<T> {
-  general: GeneralData;
-  data: T;
+interface PageContext<TData> {
+  general: PageContextGeneral;
+  data: TData;
 }
