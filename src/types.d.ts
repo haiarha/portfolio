@@ -1,15 +1,16 @@
 interface ProjectData {
+  slug: string;
+  imgSrc: string;
   title: string;
-  content: string;
+  html: string;
 }
 
 interface HomepageData {
   projects: ProjectData[];
-  pageNumber: number;
-  pagesCount: number;
 }
 
 interface GeneralData {
+  homepageTitle: string;
   projectsPerPage: number;
 }
 
