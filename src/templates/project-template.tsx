@@ -8,7 +8,7 @@ const PageTemplate: React.FC<PageProps<{}, PageContext<ProjectData>>> = ({
   const { slug, title, html } = pageContext.data;
 
   return (
-    <Page>
+    <Page general={pageContext.general}>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </Page>
   );

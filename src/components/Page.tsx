@@ -1,70 +1,98 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
 
-const Page: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const linkPrefixesMap: Record<any, string> = {
+  email: "mailto:",
+  phone: "tel:",
+};
+
+const Page: React.FC<{
+  children: React.ReactNode;
+  general: PageContextGeneral;
+}> = ({ children, general }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const menuLinks = [
+    { text: "Home", href: "/" },
+    { text: "Projects", href: "/#projects" },
+    { text: "About", href: "/#about" },
+    { text: "Contact", href: `mailto:${general.links.Email}` },
+  ];
+  const socialLinks = (
+    Object.keys(general.links) as (keyof typeof general.links)[]
+  )
+    .filter((key) => general.links[key])
+    .map((key) => ({
+      text: key,
+      href: `${linkPrefixesMap[key] || ""}${general.links[key]}`,
+    }));
+
   return (
-    <div className="bg-slate-100 min-h-screen">
-      <button
-        className="block sm:hidden fixed top-4 right-4 p-2 bg-gray-800 text-white"
-        onClick={() => setIsOpen((s) => !s)}
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+    <div className="bg-slate-100 min-h-screen flex flex-col">
+      <div className="sticky z-10 top-0 left-0 right-0 bg-gray-700 text-white">
+        <button
+          className="block md:hidden absolute top-4 right-4 z-10 p-2 bg-gray-800 text-white"
+          onClick={() => setIsOpen((s) => !s)}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          ></path>
-        </svg>
-      </button>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
 
-      <nav
-        className={`bg-gray-700 text-white p-4 block sm:hidden ${
-          isOpen ? "" : "hidden"
-        }`}
-      >
-        <div className="flex flex-col space-y-2">
-          <Link to="/" className="hover:text-gray-300">
-            Home
-          </Link>
-          <a href="#" className="hover:text-gray-300">
-            About
-          </a>
-          <a href="#" className="hover:text-gray-300">
-            Services
-          </a>
-          <a href="#" className="hover:text-gray-300">
-            Contact
-          </a>
+        <div className="container p-4 mx-auto">
+          <nav className={`block md:hidden ${isOpen ? "" : "hidden"}`}>
+            <div className="flex flex-col space-y-2">
+              {menuLinks.map(({ text, href }) => (
+                <Link to={href} className="hover:text-gray-300">
+                  {text}
+                </Link>
+              ))}
+            </div>
+          </nav>
+
+          <nav className="hidden md:flex justify-end">
+            <div className="flex space-x-8">
+              {menuLinks.map(({ text, href }) => (
+                <Link to={href} className="hover:text-gray-300">
+                  {text}
+                </Link>
+              ))}
+            </div>
+          </nav>
         </div>
-      </nav>
+      </div>
 
-      <nav className="bg-gray-700 text-white p-4 hidden sm:flex justify-center">
-        <div className="flex space-x-4">
-          <Link to="/" className="hover:text-gray-300">
-            Home
-          </Link>
-          <a href="#" className="hover:text-gray-300">
-            About
-          </a>
-          <a href="#" className="hover:text-gray-300">
-            Services
-          </a>
-          <a href="#" className="hover:text-gray-300">
-            Contact
-          </a>
+      <main className="container mx-auto p-4 flex-grow">{children}</main>
+
+      <footer>
+        <div className="bg-gray-200 text-gray-900 py-4">
+          <div className="container mx-auto p-4">
+            <div className="flex justify-center">
+              {socialLinks.map(({ text, href }) => (
+                <Link to={href} className="hover:underline mx-4">
+                  {text}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-      </nav>
-
-      <main className="container mx-auto p-4">{children}</main>
+        <div className="bg-gray-800 text-white text-center py-2">
+          <div className="container mx-auto p-4">
+            <p>&copy; 2023 Portfolio. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

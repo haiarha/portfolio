@@ -30,10 +30,12 @@ export const createPages: GatsbyNode["createPages"] = async ({
     const h1Text: string | undefined = parsed.querySelector("h1")?.innerText;
     const imgSrc: string | undefined =
       parsed.querySelector("img")?.attributes.src;
+    const description = parsed.querySelector("p")?.innerText
 
     return {
       slug,
       title: h1Text || projectFileName,
+      description: description || '',
       imgSrc,
       html,
     };
